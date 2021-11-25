@@ -1,0 +1,71 @@
+<div class="modal">
+  <div class="row main">
+    <div class="title">نام</div>
+    <div class="title">دسته</div>
+    <div class="title">فی</div>
+    <div class="btn_edit"></div>
+  </div>
+  <div class="divider"></div>
+
+  <div *ngFor="let product of products">
+    <div class="row">
+      <div class="title">{{product.name}}</div>
+      <div class="title">{{product.isColor ? 'رنگ' : 'اسانس'}}</div>
+      <div class="title">{{product.price | number}}</div>
+
+      <div
+        (click)="showDeleteProductConfirm({name: product.name, id: product.id})"
+        class="btn_delete"
+      >
+        <ion-icon name="trash"></ion-icon>
+      </div>
+
+      <div [routerLink]="['/', 'edit-product', product.id]" class="btn_edit">
+        <svg
+          height="24"
+          viewBox="0 0 24 24"
+          width="24"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path d="M0 0h24v24H0V0z" fill="none" />
+          <path
+            fill="#01686a"
+            d="M3 17.46v3.04c0 .28.22.5.5.5h3.04c.13 0 .26-.05.35-.15L17.81 9.94l-3.75-3.75L3.15 17.1c-.1.1-.15.22-.15.36zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"
+          />
+        </svg>
+      </div>
+    </div>
+    <div class="divider"></div>
+  </div>
+
+  <div *ngIf="!loading && error">
+    <div class="row">
+      <div class="title">خطایی رخ داده است</div>
+    </div>
+    <div class="divider"></div>
+  </div>
+
+  <div *ngIf="loading && !error">
+    <div class="row">
+      <ion-spinner color="primary"></ion-spinner>
+    </div>
+    <div class="divider"></div>
+  </div>
+
+  <div class="bottom_navbar">
+    <button class="btn_add_ware" [routerLink]="['/','new-product']">
+      <svg
+        height="24"
+        viewBox="0 0 24 24"
+        width="24"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path d="M0 0h24v24H0V0z" fill="none" />
+        <path
+          d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4 11h-3v3c0 .55-.45 1-1 1s-1-.45-1-1v-3H8c-.55 0-1-.45-1-1s.45-1 1-1h3V8c0-.55.45-1 1-1s1 .45 1 1v3h3c.55 0 1 .45 1 1s-.45 1-1 1z"
+        />
+      </svg>
+      افزودن محصول
+    </button>
+  </div>
+</div>

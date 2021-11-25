@@ -1,0 +1,87 @@
+<div class="modal">
+    <button (click)="back()" class="btn_back">
+        <svg height="24"
+             viewBox="0 0 24 24"
+             width="24"
+             xmlns="http://www.w3.org/2000/svg">
+            <path d="M14.71 15.88L10.83 12l3.88-3.88c.39-.39.39-1.02 0-1.41-.39-.39-1.02-.39-1.41 0L8.71 11.3c-.39.39-.39 1.02 0 1.41l4.59 4.59c.39.39 1.02.39 1.41 0 .38-.39.39-1.03 0-1.42z"/>
+        </svg>
+    </button>
+
+    <div class="row main">
+        <div *ngIf="!loading" class="title gray">{{user.FName}}</div>
+        <div *ngIf="loading" class="title ion-text-center">
+            <ion-spinner color="primary"></ion-spinner>
+        </div>
+    </div>
+    <div class="divider"></div>
+    <div class="cnt_edit_user">
+        <div class="row">
+            <div class="cnt_input">
+                <div class="label">تغیر بدهی:</div>
+                <label>
+                    <input type="text"
+                           (change)="onPriceChange($event)"
+                           [value]="debt ? debt === '-1' ? '' : debt : ''"/>
+                </label>
+                <div class="postfix">تومان</div>
+            </div>
+            <div class="cnt_input">
+                <div class="label">بدهی:</div>
+                <div *ngIf="!loading" class="label dark"
+                     [ngClass]="{'red': user.debt === -1, 'green': user.debt === 0}">{{user.debt === -1 ? 'تنظیم نشده' : user.debt === 0 ? 0 : user.debt + ' تومان '}}</div>
+                <div class="label ion-text-center" *ngIf="loading">
+                    <ion-spinner color="primary"></ion-spinner>
+                </div>
+            </div>
+        </div>
+        <div class="wide_box">
+            <div class="title">تاریخچه سفارشات کاربر</div>
+            <div class="row main">
+                <div class="item">کد سفارش</div>
+                <div class="item">مبلغ سفارش</div>
+                <div class="item">تاریخ سفارش</div>
+            </div>
+        </div>
+
+        <div *ngIf="!loading" class="data">
+            <div class="divider"></div>
+
+            <div *ngFor="let order of user.orders" class="wrapper">
+                <div [routerLink]="['/','order-details', order.id]" class="row">
+                    <div class="item">{{order.orderId}}</div>
+                    <div class="item">{{order.purchase.price | number}}</div>
+                    <div class="item">{{order.created | persianDate}}</div>
+                </div>
+                <div class="divider"></div>
+            </div>
+        </div>
+
+        <section class="data">
+            <div class="wrapper" *ngIf="!loading && !error && !user.orders.length">
+                <div class="row">
+                    <div class="item">موردی یافت نشد</div>
+                </div>
+                <div class="divider"></div>
+            </div>
+
+            <div class="wrapper" *ngIf="!loading && error">
+                <div class="row">
+                    <div class="title">خطایی رخ داده است</div>
+                </div>
+                <div class="divider"></div>
+            </div>
+
+            <div class="wrapper ion-padding-top" *ngIf="loading && !error">
+                <div class="row ion-margin-top">
+                    <ion-spinner color="primary"></ion-spinner>
+                </div>
+                <div class="divider"></div>
+            </div>
+        </section>
+    </div>
+
+    <div class="bottom_navbar">
+        <div class="btn_main_submit" (click)="onSubmitChanges()">ثبت تغییرات</div>
+    </div>
+</div>

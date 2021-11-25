@@ -1,0 +1,86 @@
+<div class="modal">
+    <button (click)="back()" class="btn_back">
+        <svg height="24"
+             viewBox="0 0 24 24"
+             width="24"
+             xmlns="http://www.w3.org/2000/svg">
+            <path d="M14.71 15.88L10.83 12l3.88-3.88c.39-.39.39-1.02 0-1.41-.39-.39-1.02-.39-1.41 0L8.71 11.3c-.39.39-.39 1.02 0 1.41l4.59 4.59c.39.39 1.02.39 1.41 0 .38-.39.39-1.03 0-1.42z"/>
+        </svg>
+    </button>
+
+    <div *ngIf="!loading" class="cnt_edit_ware">
+        <div class="cnt_right">
+            <img *ngIf="selectedFiles && !loading && imgURL" id="pic" class="input-img" [src]="imgURL" height="200"
+                 alt="pic">
+
+            <div *ngIf="!selectedFiles && !loading" class="input-img"
+                 [style.background-image]="'url(' + productPicture.path + ')'"></div>
+
+            <div class="form-group">
+                <input style="display: none"
+                       type="file"
+                       id="file"
+                       (change)="selectFile($event)">
+
+                <label style="color: #1f1f1f" for="file">
+                    <div class="btn_change_image">
+                        <svg height="24"
+                             viewBox="0 0 24 24"
+                             width="24"
+                             xmlns="http://www.w3.org/2000/svg">
+                            <path d="M0 0h24v24H0V0z" fill="none"/>
+                            <path d="M3 17.46v3.04c0 .28.22.5.5.5h3.04c.13 0 .26-.05.35-.15L17.81 9.94l-3.75-3.75L3.15 17.1c-.1.1-.15.22-.15.36zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/>
+                        </svg>
+                        تغیر تصویر
+                    </div>
+                </label>
+            </div>
+
+            <div class="btn_main_submit ion-margin-top" (click)="upload()">
+                ذخیره تصویر
+            </div>
+
+        </div>
+        <div class="cnt_left">
+            <div class="cnt_input">
+                <div class="label">نام محصول:</div>
+                <label>
+                    <input type="text" [(ngModel)]="name"/>
+                </label>
+            </div>
+
+            <div class="cnt_input">
+                <div class="label">توضیحات:</div>
+                <label>
+                    <input type="text" [(ngModel)]="details"/>
+                </label>
+            </div>
+
+
+            <div class="cnt_input">
+                <div class="label">قیمت:</div>
+                <label>
+                    <input (change)="onPriceChange($event)" type="text" [value]="price"/>
+                </label>
+                <div class="postfix">تومان</div>
+            </div>
+
+            <div class="cnt_input">
+                <ion-label class="type-label">دسته:</ion-label>
+                <ion-select [value]="isColor" (ionChange)="isColorChanged($event)" class="custom-options"
+                            interface="popover" placeholder="یکی را انتخاب کنید">
+                    <ion-select-option [value]="true">رنگ</ion-select-option>
+                    <ion-select-option [value]="false">اسانس</ion-select-option>
+                </ion-select>
+            </div>
+        </div>
+    </div>
+
+    <div *ngIf="loading" class="ion-text-center ion-margin-top">
+        <ion-spinner color="primary"></ion-spinner>
+    </div>
+
+    <div class="bottom_navbar" (click)="onEdit()">
+        <div class="btn_main_submit">ثبت تغیرات</div>
+    </div>
+</div>

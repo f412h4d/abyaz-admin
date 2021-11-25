@@ -1,0 +1,56 @@
+<div class="modal">
+  <div class="row main">
+    <div class="title">کد خرید</div>
+    <div class="title">مشتری</div>
+    <div class="title">مبلغ</div>
+    <div class="title">تاریخ</div>
+    <div class="half-column"></div>
+  </div>
+  <div class="divider"></div>
+
+  <div *ngFor="let order of orders">
+    <div [routerLink]="['/','order-details',order.id]" class="row">
+      <div class="title">
+        <li
+          class="bullet"
+          [ngStyle]="{'color': order.status === 0 ? '#01686a' : '#FFF' }"
+        ></li>
+        {{order.orderId}}
+      </div>
+      <div class="title">{{order.user.FName}}</div>
+      <div class="title" [ngStyle]="{'color': !!order.purchase ? 'green' : 'red' }">
+        {{order.total | number}}
+      </div>
+      <div class="title">{{order.created | persianDate}}</div>
+
+      <div
+        (click)="$event.stopPropagation();showDeleteOrderConfirm({id: order.id, name: order.user.FName})"
+        class="btn_delete half-column"
+      >
+        <ion-icon name="trash"></ion-icon>
+      </div>
+    </div>
+    <div class="divider"></div>
+  </div>
+
+  <div *ngIf="!loading && !error && !orders.length">
+    <div class="row">
+      <div class="title">موردی یافت نشد</div>
+    </div>
+    <div class="divider"></div>
+  </div>
+
+  <div *ngIf="!loading && error">
+    <div class="row">
+      <div class="title">خطایی رخ داده است</div>
+    </div>
+    <div class="divider"></div>
+  </div>
+
+  <div *ngIf="loading && !error">
+    <div class="row">
+      <ion-spinner color="primary"></ion-spinner>
+    </div>
+    <div class="divider"></div>
+  </div>
+</div>

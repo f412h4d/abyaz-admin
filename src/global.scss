@@ -1,0 +1,341 @@
+/*
+ * App Global CSS
+ * ----------------------------------------------------------------------------
+ * Put style rules here that you want to apply globally. These styles are for
+ * the entire app and not just one component. Additionally, this file can be
+ * used as an entry point to import other CSS/Sass files to be included in the
+ * output CSS.
+ * For more information on global stylesheets, visit the documentation:
+ * https://ionicframework.com/docs/layout/global-stylesheets
+ */
+
+/* Core CSS required for Ionic components to work properly */
+@import '~@ionic/angular/css/core.css';
+
+/* Basic CSS for apps built with Ionic */
+@import '~@ionic/angular/css/normalize.css';
+@import '~@ionic/angular/css/structure.css';
+@import '~@ionic/angular/css/typography.css';
+@import '~@ionic/angular/css/display.css';
+
+/* Optional CSS utils that can be commented out */
+@import '~@ionic/angular/css/padding.css';
+@import '~@ionic/angular/css/float-elements.css';
+@import '~@ionic/angular/css/text-alignment.css';
+@import '~@ionic/angular/css/text-transformation.css';
+@import '~@ionic/angular/css/flex-utils.css';
+
+body {
+  direction: rtl;
+}
+
+@font-face {
+  font-family: 'iran-sans';
+  font-style: normal;
+  font-weight: 400;
+  font-display: auto;
+  src: local('iran-sans'),
+    url('./assets/fonts/IRANSansWeb(FaNum)_Light.woff2') format('woff2'),
+    url('./assets/fonts/IRANSansWeb(FaNum)_Light.woff') format('woff'),
+    url('./assets/fonts/IRANSansWeb(FaNum)_Light.ttf') format('truetype'),
+    url('./assets/fonts/IRANSansWeb(FaNum)_Light.eot') format('embedded-opentype');
+}
+
+::-webkit-scrollbar {
+  width: 12px;
+}
+
+::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.5);
+}
+
+html,
+body,
+* {
+  font-family: iran-sans, 'Arial', 'Courier', monospace;
+}
+
+.font {
+  font-family: iran-sans, 'Arial', 'Courier', monospace;
+}
+
+.container {
+  background-color: #01686a;
+  font-family: iran-sans, monospace;
+  display: flex;
+  position: fixed;
+  justify-content: center;
+  height: 100vh;
+  z-index: 10000;
+  width: 100vw;
+}
+
+.container .side_navbar {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  flex: 1;
+  margin: 1rem;
+  box-sizing: border-box;
+}
+
+.container .side_navbar .logo {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: center;
+  margin: 1rem 0;
+  cursor: default;
+}
+
+.container .side_navbar .logo img {
+  max-width: 2.5rem;
+}
+
+.container .side_navbar .logo .title {
+  color: #00fbff;
+}
+
+.container .side_navbar .divider {
+  height: 0.05rem;
+  width: 100%;
+  background-color: #cfcfcf;
+  margin: 0.5rem 0;
+}
+
+.container .side_navbar .item {
+  color: #fff;
+  display: flex;
+  padding: 0.5rem 0;
+  margin: 0.5rem 0;
+  align-items: center;
+  justify-content: space-between;
+  border-radius: 0.5rem;
+  cursor: pointer;
+}
+
+.container .side_navbar .item:hover {
+  background-color: rgba(102, 212, 214, 0.54);
+  transition-duration: 0.3s;
+}
+
+.container .side_navbar .item .cnt_icon_title {
+  display: flex;
+  align-items: center;
+  flex: 14;
+}
+
+.container .side_navbar .item .cnt_icon_title svg {
+  align-self: center;
+  min-width: 25%;
+  fill: #fff;
+  margin-left: 0.5rem;
+}
+
+.container .side_navbar .item .cnt_icon_title .title {
+  font-size: 1.3rem;
+}
+
+.container .side_navbar .item .counter {
+  flex: 1;
+  font-size: 1.2rem;
+}
+
+.modal {
+  overflow: scroll;
+  width: 100%;
+  height: calc(100% - 135px);
+  background-color: #fff;
+  border-radius: 1rem;
+  padding: 1rem;
+  box-sizing: border-box;
+  position: relative;
+
+  .btn_back {
+    background-color: #01686a;
+    position: fixed;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 2rem;
+    left: 1rem;
+    top: 1rem;
+    z-index: 10;
+
+    svg {
+      fill: #fff;
+    }
+  }
+
+  .divider {
+    height: 1.5px;
+    width: 100%;
+    background-color: #cfcfcf;
+    margin: 1rem 0;
+  }
+
+  .row {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    text-align: center;
+    color: #303030;
+    position: relative;
+
+    .half-column {
+      flex: 0.5;
+      display: flex;
+      justify-content: space-evenly;
+      align-items: center;
+      position: relative;
+    }
+
+    .title {
+      flex: 1;
+      display: flex;
+      justify-content: space-evenly;
+      align-items: center;
+      position: relative;
+      font-size: 1.2rem;
+
+      .bullet {
+        color: #01686a;
+        font-size: 1.5rem;
+        position: absolute;
+        right: 2rem;
+      }
+    }
+
+    .title.red {
+      color: #f00;
+      font-weight: bold;
+    }
+
+    .title.green {
+      color: #008000;
+      font-weight: bold;
+    }
+
+    .title.gray {
+      color: #9e9e9e;
+    }
+  }
+
+  .btn_edit {
+    color: #01686a;
+    position: absolute;
+    left: 1.5rem;
+    cursor: pointer;
+  }
+
+  .btn_delete {
+    color: #01686a;
+    position: absolute;
+    font-size: 20px;
+    left: 4.5rem;
+    cursor: pointer;
+  }
+
+  .btn_main_submit {
+    border: none;
+    color: #fff;
+    background-color: #01686a;
+    padding: 0.7rem 3.5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 0.5rem;
+    cursor: pointer;
+  }
+
+  .btn_main_submit:hover {
+    background-color: #303030;
+    transition-duration: 0.3s;
+    border: none;
+  }
+
+  .bottom_navbar {
+    position: fixed;
+    bottom: 0;
+    display: flex;
+    width: 100%;
+    right: 0;
+    left: 0;
+    padding: 0 1.5rem 1rem 1.5rem;
+    justify-content: center;
+    flex-wrap: wrap;
+    box-sizing: border-box;
+
+    .item {
+      display: flex;
+      min-width: 23%;
+      margin-bottom: 0.5rem;
+
+      .title {
+        font-weight: bold;
+        margin-left: 0.5rem;
+        color: #303030;
+      }
+
+      .text {
+        color: #9e9e9e;
+      }
+    }
+
+    .item.end {
+      align-self: start;
+      width: 100%;
+    }
+
+    .btn_add_ware {
+      border: none;
+      color: #fff;
+      background-color: #303030;
+      padding: 0.5rem 1.5rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-radius: 0.5rem;
+
+      svg {
+        fill: #fff;
+        margin-left: 0.5rem;
+      }
+    }
+
+    .btn_add_ware:hover {
+      background-color: #01686a;
+      transition-duration: 0.3s;
+      border: none;
+    }
+  }
+}
+
+.my-custom-interface * {
+  font-family: iran-sans, monospace !important;
+}
+
+.my-custom-loading {
+  position: fixed;
+  left: -20% !important;
+}
+
+.my-custom-interface .select-interface-option {
+  --color: #666;
+  --color-hover: #666;
+  font-family: iran-sans, monospace !important;
+}
+
+.delete-confirm-alert {
+  .red {
+    color: var(--ion-color-danger);
+    font-weight: bold;
+  }
+}

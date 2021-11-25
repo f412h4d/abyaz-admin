@@ -1,0 +1,65 @@
+.container {
+  background-color: #fff;
+  font-family: yekanr, serif;
+  display: flex;
+  justify-content: center;
+  height: 100vh;
+
+  .form_cnt {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    color: #01686a;
+
+    ion-label {
+      text-decoration: underline;
+      cursor: pointer;
+    }
+
+    .header {
+      flex: 0;
+      text-align: center;
+      min-height: 36px;
+      height: 36px;
+      max-height: 36px;
+    }
+
+    .field {
+      text-align: center;
+      direction: ltr;
+      border: 0.05rem #01686a solid;
+      margin: 0.7rem 0;
+      border-radius: 0.5rem;
+      min-height: 2.5rem;
+      min-width: 15rem;
+    }
+
+    .validator {
+      text-align: center;
+      color: var(--ion-color-danger);
+      margin: 0.5rem 0;
+      min-height: 2.5rem;
+      min-width: 15rem;
+    }
+
+    .btn {
+      background-color: #01686a;
+      color: #fff;
+      padding: 0.8rem 0;
+      border-radius: 0.5rem;
+      border: unset;
+      margin: 2rem 0;
+    }
+
+    .btn:hover {
+      background-color: #01686a;
+      transition-duration: 0.3s;
+      border: none;
+    }
+
+    .btn:active {
+      box-shadow: 0 0 0.5rem #01686a;
+      transition-delay: 0s;
+    }
+  }
+}

@@ -1,0 +1,50 @@
+.modal {
+  .boxes {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    width: 100%;
+    height: 100%;
+    margin: 1.5rem 0;
+
+    .box {
+      border: 0.1rem #dddada solid;
+      width: 40%;
+      height: 40%;
+      border-radius: 1rem;
+      margin: 0.5rem 1rem;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-evenly;
+      align-items: center;
+      cursor: default;
+
+      svg {
+        align-self: center;
+        fill: #01686a;
+        position: absolute;
+        top: -1.2rem;
+        right: 0.5rem;
+      }
+
+      .title {
+        display: flex;
+        text-align: center;
+        align-items: center;
+        color: #01686a;
+        font-size: 2.25rem;
+
+        .counter {
+          font-size: 4rem;
+          margin-left: 1.65rem;
+        }
+      }
+
+      .desc {
+        color: #303030;
+        font-size: 1.75rem;
+      }
+    }
+  }
+}

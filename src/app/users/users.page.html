@@ -1,0 +1,41 @@
+<div class="modal">
+    <div class="row main">
+        <div class="title">نام</div>
+        <div class="title">مجموع بدهی</div>
+        <div class="title">مبلغ کل سفارشات</div>
+        <div class="title">تایخ عضویت</div>
+    </div>
+    <div class="divider"></div>
+
+    <div *ngFor="let user of users">
+        <div [routerLink]="['/','edit-user', user.id]" class="row">
+            <div class="title">{{user.FName}}</div>
+            <div class="title"
+                 [ngClass]="{'red': user.debt === -1, 'green': user.debt === 0}">{{user.debt === -1 ? 'تنظیم نشده' : user.debt === 0 ? 0 : user.debt + ' تومان '}}</div>
+            <div class="title">{{user.totalOrders + ' تومان '}}</div>
+            <div class="title">{{user.created | persianDate}}</div>
+        </div>
+        <div class="divider"></div>
+    </div>
+
+    <div *ngIf="!loading && !error && !users.length">
+        <div class="row">
+            <div class="title">موردی یافت نشد</div>
+        </div>
+        <div class="divider"></div>
+    </div>
+
+    <div *ngIf="!loading && error">
+        <div class="row">
+            <div class="title">خطایی رخ داده است</div>
+        </div>
+        <div class="divider"></div>
+    </div>
+
+    <div *ngIf="loading && !error">
+        <div class="row">
+            <ion-spinner color="primary"></ion-spinner>
+        </div>
+        <div class="divider"></div>
+    </div>
+</div>

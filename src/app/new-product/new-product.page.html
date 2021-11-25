@@ -1,0 +1,49 @@
+<div class="modal">
+    <button (click)="back()" class="btn_back">
+        <svg height="24"
+             viewBox="0 0 24 24"
+             width="24"
+             xmlns="http://www.w3.org/2000/svg">
+            <path d="M14.71 15.88L10.83 12l3.88-3.88c.39-.39.39-1.02 0-1.41-.39-.39-1.02-.39-1.41 0L8.71 11.3c-.39.39-.39 1.02 0 1.41l4.59 4.59c.39.39 1.02.39 1.41 0 .38-.39.39-1.03 0-1.42z"/>
+        </svg>
+    </button>
+
+    <div class="cnt_edit_ware">
+        <div class="cnt_left">
+            <div class="cnt_input">
+                <div class="label">نام محصول:</div>
+                <label>
+                    <input type="text" [(ngModel)]="name"/>
+                </label>
+            </div>
+
+            <div class="cnt_input">
+                <div class="label">توضیحات:</div>
+                <label>
+                    <input type="text" [(ngModel)]="details"/>
+                </label>
+            </div>
+
+            <div class="cnt_input">
+                <div class="label">قیمت:</div>
+                <label>
+                    <input (change)="onPriceChange($event)" type="text" [value]="price ? price : ''"/>
+                </label>
+                <div class="postfix">تومان</div>
+            </div>
+
+            <div class="cnt_input">
+                <ion-label class="type-label">دسته:</ion-label>
+                <ion-select [value]="isColor" (ionChange)="isColorChanged($event)" class="custom-options"
+                            interface="popover" placeholder="یکی را انتخاب کنید">
+                    <ion-select-option [value]="true">رنگ</ion-select-option>
+                    <ion-select-option [value]="false">اسانس</ion-select-option>
+                </ion-select>
+            </div>
+        </div>
+    </div>
+
+    <div class="bottom_navbar">
+        <div class="btn_main_submit" (click)="onAdd()">افزودن محصول</div>
+    </div>
+</div>

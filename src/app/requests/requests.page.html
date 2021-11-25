@@ -1,0 +1,39 @@
+<div class="modal">
+    <div class="row main">
+        <div class="title">کاربر</div>
+        <div class="title">تاریخ درخواست</div>
+        <div class="title">وضعیت</div>
+    </div>
+    <div class="divider"></div>
+
+    <div *ngFor="let request of requests">
+        <div [routerLink]="['/','edit-user', request.user.id]" class="row">
+            <div class="title">{{request.user.FName}}</div>
+            <div class="title">{{request.created | persianDate}}</div>
+            <div class="title"
+                 [ngClass]="{'red': request.status === 0, 'green': request.status === 1}">{{request.status === 1 ? 'مشاهده شده' : 'در صف بررسی'}}</div>
+        </div>
+        <div class="divider"></div>
+    </div>
+
+    <div *ngIf="!loading && !error && !requests.length">
+        <div class="row">
+            <div class="title">موردی یافت نشد</div>
+        </div>
+        <div class="divider"></div>
+    </div>
+
+    <div *ngIf="!loading && error">
+        <div class="row">
+            <div class="title">خطایی رخ داده است</div>
+        </div>
+        <div class="divider"></div>
+    </div>
+
+    <div *ngIf="loading && !error">
+        <div class="row">
+            <ion-spinner color="primary"></ion-spinner>
+        </div>
+        <div class="divider"></div>
+    </div>
+</div>

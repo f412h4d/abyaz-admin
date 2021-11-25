@@ -1,0 +1,146 @@
+# This file was generated based on ".graphqlconfig". Do not edit manually.
+
+schema {
+    query: Query
+    mutation: Mutation
+}
+
+interface Audit {
+    created: Date
+    id: String
+    updated: Date
+    verified: Boolean!
+}
+
+type Cart {
+    product: Product
+    quantity: Int
+}
+
+type File implements Audit {
+    created: Date
+    id: String
+    path: String
+    updated: Date
+    verified: Boolean!
+}
+
+"Mutation root"
+type Mutation {
+    addProduct(details: String!, isColor: Boolean!, name: String!, price: Long!): Product
+    deleteProduct(productId: String!): Product
+    editProduct(details: String, isColor: Boolean, name: String, price: Long, productId: String!): Product
+    signIn(password: String!, phoneNumber: String!): User
+    signUp(companyName: String!, fName: String!, nationalId: String!, password: String!, phoneNumber: String!): User
+    submitOrder(address: String!, city: String!, details: String, phoneNumber: String!, productsInput: [OrdersProductsInput]!, purchaseId: String!, transit: String, userId: String!): Order
+    submitRequest(userId: String!): User
+    updateOrderStatus(orderId: String!, status: Int!): Order
+    updateRequestStatus(requestId: String!, status: Int!): Request
+    updateUserBillFile(fileId: String!, userId: String!): User
+    updateUserDebt(debt: Long!, userId: String!): User
+}
+
+type Order implements Audit {
+    address: String
+    city: String
+    created: Date
+    details: String
+    id: String
+    items: [Cart]
+    orderId: Long
+    phoneNumber: String
+    purchase: Purchase
+    status: Int
+    total: Int
+    transit: String
+    updated: Date
+    user: User
+    verified: Boolean!
+}
+
+type Product implements Audit {
+    created: Date
+    details: String
+    id: String
+    isColor: Boolean
+    name: String
+    picture: File
+    price: Long
+    updated: Date
+    verified: Boolean!
+}
+
+type Purchase implements Audit {
+    authority: String
+    checked: Boolean!
+    created: Date
+    id: String
+    orderId: String
+    paid: Boolean!
+    price: Int
+    updated: Date
+    userId: String
+    verified: Boolean!
+}
+
+"Query root"
+type Query {
+    allColors: [Product]
+    allEssences: [Product]
+    allOrders: [Order]
+    allOrdersThisMonth: [Order]
+    allPendingOrders: [Order]
+    allProducts: [Product]
+    allPurchases: [Purchase]
+    allRequests: [Request]
+    allUsers: [User]
+    findFileById(fileId: String!): File
+    findOrderById(orderId: String!): Order
+    findProductById(productId: String!): Product
+    findPurchaseById(purchaseId: String!): Purchase
+    findRequestById(requestId: String!): Request
+    findUserById(userId: String!): User
+    findUserByNationalId(nationalId: String!): User
+    findUserByPhoneNumber(phoneNumber: String!): User
+}
+
+type Request implements Audit {
+    created: Date
+    id: String
+    status: Int
+    updated: Date
+    user: User
+    verified: Boolean!
+}
+
+type User implements Audit {
+    FName: String
+    bill: File
+    companyName: String
+    created: Date
+    debt: Long
+    id: String
+    isRequestPending: Boolean
+    nationalId: String
+    orders: [Order]
+    password: String
+    phoneNumber: String
+    totalOrders: Long
+    updated: Date
+    verified: Boolean!
+}
+
+input OrdersProductsInput {
+    productId: String
+    quantity: Int
+}
+
+
+"Built-in scalar representing an instant in time"
+scalar Date
+
+"Unrepresentable type"
+scalar UNREPRESENTABLE
+
+"Long type"
+scalar Long

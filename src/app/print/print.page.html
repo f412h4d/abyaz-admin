@@ -1,0 +1,84 @@
+<ion-content>
+  <div id="print" class="print__content">
+    <div class="abyaz-logo--container">
+      <div class="abyaz-logo">
+        <img alt="" src="../assets/icon/logo.png" />
+      </div>
+
+      <div class="abyaz-title">ابیض شیمی</div>
+
+      <p class="abyaz-date">{{today | persianDate }}</p>
+    </div>
+
+    <div class="row main">
+      <div class="title">محصول</div>
+      <div class="title">فی</div>
+      <div class="title">تعداد</div>
+      <div class="title">قیمت کل</div>
+    </div>
+    <div class="divider"></div>
+
+    <section *ngIf="!loading">
+      <div *ngFor="let item of order.items">
+        <div class="row">
+          <div class="title">{{item.product.name}}</div>
+          <div class="title">{{item.product.price}}</div>
+          <div class="title">{{item.quantity}}</div>
+          <div class="title">{{item.product.price * item.quantity}}</div>
+        </div>
+        <div class="divider"></div>
+      </div>
+    </section>
+
+    <section *ngIf="!loading" class="bottom_navbar">
+      <div class="item">
+        <div class="title">کدسفارش:</div>
+        <div class="text">{{order.orderId}}</div>
+      </div>
+      <div class="item">
+        <div class="title">مشتری:</div>
+        <div class="text">{{order.user.FName}}</div>
+      </div>
+      <div class="item">
+        <div class="title">تاریخ سفارش:</div>
+        <div class="text">{{order.created | persianDate}}</div>
+      </div>
+      <div class="item">
+        <div class="title">مبلغ کل:</div>
+        <div class="text">{{order.total}}</div>
+      </div>
+      <div class="item">
+        <div class="title">تلفن:</div>
+        <div class="text">{{order.phoneNumber}}</div>
+      </div>
+      <div class="item">
+        <div class="title">باربری:</div>
+        <div class="text">
+          {{order.transit !== 'undefined' ? order.transit : 'نامشخص'}}
+        </div>
+      </div>
+      <div class="item">
+        <div class="title">شهر:</div>
+        <div class="text">{{order.city}}</div>
+      </div>
+      <div class="item last">
+        <div class="title">نشانی:</div>
+        <div class="text">{{order.address}}</div>
+      </div>
+      <br />
+      <div class="item end">
+        <div class="title">توضیحات:</div>
+        <div class="text">
+          {{order.details !== 'undefined' ? order.details : 'نامشخص'}}
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <section class="export-button--container">
+    <ion-button
+      (click)="onExport({code: order.orderId, name: order.user.FName})"
+      >دانلود</ion-button
+    >
+  </section>
+</ion-content>

@@ -1,0 +1,85 @@
+<div id="order-details" class="modal">
+  <button (click)="back()" class="btn_back">
+    <svg height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+      <path
+        d="M14.71 15.88L10.83 12l3.88-3.88c.39-.39.39-1.02 0-1.41-.39-.39-1.02-.39-1.41 0L8.71 11.3c-.39.39-.39 1.02 0 1.41l4.59 4.59c.39.39 1.02.39 1.41 0 .38-.39.39-1.03 0-1.42z"
+      />
+    </svg>
+  </button>
+
+  <div class="row main">
+    <div class="title">محصول</div>
+    <div class="title">فی</div>
+    <div class="title">تعداد</div>
+    <div class="title">قیمت کل</div>
+  </div>
+  <div class="divider"></div>
+
+  <section *ngIf="!loading">
+    <div *ngFor="let item of order.items">
+      <div class="row">
+        <div class="title">{{item.product.name}}</div>
+        <div class="title">{{item.product.price}}</div>
+        <div class="title">{{item.quantity}}</div>
+        <div class="title">{{item.product.price * item.quantity}}</div>
+      </div>
+
+      <div class="divider"></div>
+    </div>
+  </section>
+
+  <div *ngIf="loading" class="bottom_navbar ion-text-center ion-margin-top">
+    <ion-spinner class="spinner ion-text-center" color="primary"></ion-spinner>
+  </div>
+
+  <div *ngIf="!loading" id="info" class="bottom_navbar">
+    <div class="item">
+      <div class="title">کدسفارش:</div>
+      <div class="text">{{order.orderId}}</div>
+    </div>
+
+    <div class="item">
+      <div class="title">مشتری:</div>
+      <div class="text">{{order.user.FName}}</div>
+    </div>
+
+    <div class="item">
+      <div class="title">تاریخ سفارش:</div>
+      <div class="text">{{order.created | persianDate}}</div>
+    </div>
+
+    <div class="item">
+      <div class="title">مبلغ کل:</div>
+      <div class="text">{{order.total}}</div>
+    </div>
+
+    <div class="item">
+      <div class="title">تلفن:</div>
+      <div class="text">{{order.phoneNumber}}</div>
+    </div>
+
+    <div class="item">
+      <div class="title">باربری:</div>
+      <div class="text">{{order.transit !== 'undefined' ? order.transit : 'نامشخص'}}</div>
+    </div>
+
+    <div class="item">
+      <div class="title">شهر:</div>
+      <div class="text">{{order.city}}</div>
+    </div>
+
+    <div class="item last">
+      <div class="title">نشانی:</div>
+      <div class="text">{{order.address}}</div>
+    </div>
+
+    <div class="item end">
+      <div class="title">توضیحات:</div>
+      <div class="text">{{order.details !== 'undefined' ? order.details : 'نامشخص'}}</div>
+    </div>
+
+    <a (click)="createPDF()">
+      <ion-button color="primary">خروجی PDF</ion-button>
+    </a>
+  </div>
+</div>

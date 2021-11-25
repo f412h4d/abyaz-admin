@@ -1,0 +1,32 @@
+<ion-content>
+  <form>
+    <div class="container">
+      <div class="form_cnt">
+        <h3 class="header">ورود:</h3>
+        <label>
+          <input
+            [(ngModel)]="username"
+            class="field"
+            autocomplete="username"
+            placeholder="نام کاربری"
+            type="text"
+            name="username"
+          />
+        </label>
+
+        <label>
+          <input
+            [(ngModel)]="password"
+            class="field"
+            autocomplete="current-password"
+            placeholder="رمز عبور"
+            type="password"
+            name="password"
+          />
+        </label>
+
+        <button (click)="signIn()" class="btn">ورود</button>
+      </div>
+    </div>
+  </form>
+</ion-content>
