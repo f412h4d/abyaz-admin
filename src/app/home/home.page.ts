@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { MessageService } from '../services/message.service';
 import { LoadingController } from '@ionic/angular';
 import { Order, Request } from '../../types';
+import { MessageService } from '../services/message.service';
 import { HomeService } from './home.service';
 
 @Component({
@@ -12,8 +12,11 @@ import { HomeService } from './home.service';
 export class HomePage implements OnInit {
   orders: Order[] = [];
   requests: Request[] = [];
-  loading = true;
+  isActive = false;
+
   error = false;
+  loading = true;
+  switchLoading = false;
 
   constructor(
     private message: MessageService,
@@ -36,6 +39,8 @@ export class HomePage implements OnInit {
               this.loading = result.loading;
               this.orders = result.data.orders;
               this.requests = result.data.requests;
+              this.isActive = result.data.isActive;
+
               loadingEl.dismiss().then();
             },
             (err) => {
@@ -47,5 +52,14 @@ export class HomePage implements OnInit {
           );
         });
       });
+  }
+
+  switchIsActive() {
+    this.switchLoading = true;
+
+    this.homeService.switchIsActive().subscribe((result) => {
+      this.isActive = result.data.isActive;
+      this.switchLoading = false;
+    });
   }
 }

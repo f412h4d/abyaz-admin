@@ -1,11 +1,10 @@
-import {Apollo, gql} from 'apollo-angular';
 import { Injectable } from '@angular/core';
-
-
+import { Apollo, gql } from 'apollo-angular';
 import { Order, Request } from '../../types';
 
 const HOME_QUERY = gql`
   query HomeQuery {
+    isActive: appActive
     orders: allPendingOrders {
       id
     }
@@ -15,9 +14,20 @@ const HOME_QUERY = gql`
   }
 `;
 
+const SWITCH_IS_ACTIVE_MUTATION = gql`
+  mutation SwitchIsActive {
+    isActive: switchIsActive
+  }
+`;
+
 interface HomeResponse {
+  isActive: boolean;
   orders: Order[];
   requests: Request[];
+}
+
+interface SwitchResponse {
+  isActive: boolean;
 }
 
 @Injectable({
@@ -29,6 +39,14 @@ export class HomeService {
   homeData() {
     return this.apollo.watchQuery<HomeResponse>({
       query: HOME_QUERY,
+      fetchPolicy: 'network-only',
     }).valueChanges;
+  }
+
+  switchIsActive() {
+    return this.apollo.mutate<SwitchResponse>({
+      mutation: SWITCH_IS_ACTIVE_MUTATION,
+      fetchPolicy: 'no-cache',
+    });
   }
 }
