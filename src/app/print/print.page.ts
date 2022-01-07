@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { LoadingController, NavController } from '@ionic/angular';
+import { LoadingController } from '@ionic/angular';
 import domtoimage from 'dom-to-image';
 import jsPDF from 'jspdf';
 import { Order } from 'src/types';
@@ -24,7 +24,6 @@ export class PrintPage implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private service: OrdersService,
-    private navCtrl: NavController,
     private message: MessageService,
     private loadingCtrl: LoadingController,
   ) {}

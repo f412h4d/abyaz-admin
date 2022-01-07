@@ -8,7 +8,7 @@ import { PersianDatePipe } from 'src/shared/persian-date.pipe';
 import { Order } from '../../types';
 import { OrdersService } from '../orders/orders.service';
 import { MessageService } from '../services/message.service';
-import { logo, addFont } from './assets.encoded';
+import { addFont, logo } from './assets.encoded';
 
 @Component({
   selector: 'app-order-details',
@@ -258,9 +258,13 @@ export class OrderDetailsPage implements OnInit {
     });
 
     // below line for Open PDF document in new tab
-    doc.output('dataurlnewwindow');
+    // doc.output('dataurlnewwindow');
 
     // below line for Download PDF document
-    // doc.save(`سفارش_${code}_${name}.pdf`);
+    doc.save(
+      `${this.persianDatePipe.transform(this.order.created)}-سفارش_${
+        this.order.orderId
+      }_${this.order.user.FName}.pdf`,
+    );
   }
 }
