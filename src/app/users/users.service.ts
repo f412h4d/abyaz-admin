@@ -1,12 +1,11 @@
-import {gql, Apollo} from 'apollo-angular';
 import { Injectable } from '@angular/core';
-
+import { Apollo, gql } from 'apollo-angular';
 
 import { User } from '../../types';
 
 const ALL_USERS_QUERY = gql`
-  query AllUsers {
-    users: allUsers {
+  query AllUsers($fName: String!) {
+    users: allUsers(fName: $fName) {
       id
       FName
       debt
@@ -57,9 +56,12 @@ interface Response {
 export class UsersService {
   constructor(private apollo: Apollo) {}
 
-  allUsers() {
+  allUsers(fName: string) {
     return this.apollo.watchQuery<AllUsersResponse>({
       query: ALL_USERS_QUERY,
+      variables: {
+        fName,
+      },
     }).valueChanges;
   }
 
