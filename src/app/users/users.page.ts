@@ -50,7 +50,7 @@ export class UsersPage implements OnInit {
       });
   }
 
-  onSearchKeydown() {
+  onSearchKeyup() {
     if (!this.fName && this.fName !== '') {
       return;
     }
