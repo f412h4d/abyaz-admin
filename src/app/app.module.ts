@@ -15,12 +15,7 @@ import { AppComponent } from './app.component';
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
-  imports: [
-    BrowserModule,
-    IonicModule.forRoot(),
-    AppRoutingModule,
-    HttpClientModule,
-  ],
+  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, HttpClientModule],
   providers: [
     StatusBar,
     SplashScreen,
@@ -32,7 +27,8 @@ import { AppComponent } from './app.component';
         return {
           cache: new InMemoryCache(),
           link: httpLink.create({
-            uri: 'https://api.abyazshimi.ir/graphql/',
+            // uri: 'https://api.abyazshimi.ir/graphql/',
+            uri: 'http://localhost:8080/graphql/',
           }),
         };
       },

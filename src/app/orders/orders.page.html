@@ -11,17 +11,19 @@
 
   <div *ngFor="let order of orders">
     <div [routerLink]="['/','order-details',order.id]" class="row">
+      <!-- is Viewed (Read) Status -->
       <div class="title">
-        <li
-          class="bullet"
-          [ngStyle]="{'color': order.status === 0 ? '#01686a' : '#FFF' }"
-        ></li>
+        <li class="bullet" [ngStyle]="{'color': order.status === 0 ? '#01686a' : '#FFF' }"></li>
         {{order.orderId}}
       </div>
+
+      <!-- Users Name -->
       <div class="title">{{order.user.FName}}</div>
+
       <div class="title" [ngStyle]="{'color': !!order.purchase ? 'green' : 'red' }">
-        {{order.total | number}}
+        {{order.total | number}} {{order.transit !== 'خودم' ? '+ ۷۰,۰۰۰ تومان هزینه ی باربری' : ''}}
       </div>
+
       <div class="title">{{order.created | persianDate}}</div>
 
       <div
@@ -31,10 +33,7 @@
         <ion-icon name="trash"></ion-icon>
       </div>
 
-      <div
-        (click)="$event.stopPropagation();selectOrder(order.id)"
-        class="btn_delete half-column"
-      >
+      <div (click)="$event.stopPropagation();selectOrder(order.id)" class="btn_delete half-column">
         <ion-icon
           [color]="order.selected ? 'success':'white'"
           [name]="order.selected ? 'checkbox-outline':'square-outline'"
@@ -78,10 +77,7 @@
     >حذف انتخاب شده ها ({{numberOfSelections}})</ion-button
   >
 
-  <ion-button
-    (click)="markAsReadSelectedOrdersHandler()"
-    [disabled]="numberOfSelections === 0"
-    color="success"
+  <ion-button (click)="markAsReadSelectedOrdersHandler()" [disabled]="numberOfSelections === 0" color="success"
     >خواندن انتخاب شده ها ({{numberOfSelections}})</ion-button
   >
 </div>

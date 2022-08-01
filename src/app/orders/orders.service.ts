@@ -18,6 +18,7 @@ const ALL_ORDERS_QUERY = gql`
       status
       total
       created
+      transit
     }
   }
 `;
@@ -45,6 +46,7 @@ const UPDATE_ORDERS_STATUS = gql`
       status
       total
       created
+      transit
     }
   }
 `;
@@ -93,6 +95,7 @@ const DELETE_SELECTED_ORDERS_MUTATION = gql`
       status
       total
       created
+      transit
     }
   }
 `;

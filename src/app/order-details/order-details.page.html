@@ -50,7 +50,9 @@
 
     <div class="item">
       <div class="title">مبلغ کل:</div>
-      <div class="text">{{order.total}}</div>
+      <div class="text">
+        {{order.total | number}} {{order.transit !== 'خودم' ? '+ ۷۰,۰۰۰ تومان هزینه ی باربری' : ''}}
+      </div>
     </div>
 
     <div class="item">
