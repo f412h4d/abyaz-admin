@@ -1,16 +1,16 @@
-import { HttpClientModule } from '@angular/common/http';
-import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
-import { RouteReuseStrategy } from '@angular/router';
-import { InMemoryCache } from '@apollo/client/core';
-import { SplashScreen } from '@ionic-native/splash-screen/ngx';
-import { StatusBar } from '@ionic-native/status-bar/ngx';
-import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
-import { APOLLO_OPTIONS } from 'apollo-angular';
-import { HttpLink } from 'apollo-angular/http';
-import { PersianDatePipe } from '../shared/persian-date.pipe';
-import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
+import { HttpClientModule } from "@angular/common/http";
+import { NgModule } from "@angular/core";
+import { BrowserModule } from "@angular/platform-browser";
+import { RouteReuseStrategy } from "@angular/router";
+import { InMemoryCache } from "@apollo/client/core";
+import { SplashScreen } from "@ionic-native/splash-screen/ngx";
+import { StatusBar } from "@ionic-native/status-bar/ngx";
+import { IonicModule, IonicRouteStrategy } from "@ionic/angular";
+import { APOLLO_OPTIONS } from "apollo-angular";
+import { HttpLink } from "apollo-angular/http";
+import { PersianDatePipe } from "../shared/persian-date.pipe";
+import { AppRoutingModule } from "./app-routing.module";
+import { AppComponent } from "./app.component";
 
 @NgModule({
   declarations: [AppComponent],
@@ -27,8 +27,8 @@ import { AppComponent } from './app.component';
         return {
           cache: new InMemoryCache(),
           link: httpLink.create({
-            // uri: 'https://api.abyazshimi.ir/graphql/',
-            uri: 'http://localhost:8080/graphql/',
+            uri: "https://api.abyazshimi.ir/graphql/",
+            // uri: 'http://localhost:8080/graphql/',
           }),
         };
       },
