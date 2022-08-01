@@ -5,6 +5,7 @@
     <div class="title">مبلغ</div>
     <div class="title">تاریخ</div>
     <div class="half-column"></div>
+    <div class="half-column"></div>
   </div>
   <div class="divider"></div>
 
@@ -24,10 +25,20 @@
       <div class="title">{{order.created | persianDate}}</div>
 
       <div
-        (click)="$event.stopPropagation();showDeleteOrderConfirm({id: order.id, name: order.user.FName})"
+        (click)="$event.stopPropagation();showDeleteOrderConfirm({id: order.id, name: order.user.FName, isMulti: false})"
         class="btn_delete half-column"
       >
         <ion-icon name="trash"></ion-icon>
+      </div>
+
+      <div
+        (click)="$event.stopPropagation();selectOrder(order.id)"
+        class="btn_delete half-column"
+      >
+        <ion-icon
+          [color]="order.selected ? 'success':'white'"
+          [name]="order.selected ? 'checkbox-outline':'square-outline'"
+        ></ion-icon>
       </div>
     </div>
     <div class="divider"></div>
@@ -53,4 +64,24 @@
     </div>
     <div class="divider"></div>
   </div>
+</div>
+
+<div class="footer-items">
+  <ion-button
+    (click)="showDeleteOrderConfirm({
+      id:-1,
+      name:'',
+      isMulti: true
+    })"
+    [disabled]="numberOfSelections === 0"
+    color="danger"
+    >حذف انتخاب شده ها ({{numberOfSelections}})</ion-button
+  >
+
+  <ion-button
+    (click)="markAsReadSelectedOrdersHandler()"
+    [disabled]="numberOfSelections === 0"
+    color="success"
+    >خواندن انتخاب شده ها ({{numberOfSelections}})</ion-button
+  >
 </div>

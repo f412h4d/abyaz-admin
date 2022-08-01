@@ -1,6 +1,5 @@
-import { User } from './../../types';
-import { Apollo, gql } from 'apollo-angular';
 import { Injectable } from '@angular/core';
+import { Apollo, gql } from 'apollo-angular';
 
 import { Order } from '../../types';
 
@@ -27,6 +26,25 @@ const UPDATE_ORDER_STATUS = gql`
   mutation UpdateOrderStatus($orderId: String!, $status: Int!) {
     updateOrderStatus(orderId: $orderId, status: $status) {
       id
+    }
+  }
+`;
+
+const UPDATE_ORDERS_STATUS = gql`
+  mutation UpdateOrdersStatus($orderIds: [String]!, $status: Int!) {
+    orders: updateOrdersStatus(orderIds: $orderIds, status: $status) {
+      id
+      user {
+        id
+        FName
+      }
+      purchase {
+        id
+      }
+      orderId
+      status
+      total
+      created
     }
   }
 `;
@@ -60,9 +78,28 @@ const FIND_ORDER_BY_ID_QUERY = gql`
   }
 `;
 
+const DELETE_SELECTED_ORDERS_MUTATION = gql`
+  mutation DeleteOrders($orderIds: [String]!) {
+    products: deleteOrders(orderIds: $orderIds) {
+      id
+      user {
+        id
+        FName
+      }
+      purchase {
+        id
+      }
+      orderId
+      status
+      total
+      created
+    }
+  }
+`;
+
 const DELETE_ORDER_MUTATION = gql`
   mutation DeleteOrder($orderId: String!) {
-    product: deleteOrder(orderId: $orderId) {
+    products: deleteOrder(orderId: $orderId) {
       id
       user {
         FName
@@ -101,6 +138,16 @@ export class OrdersService {
     });
   }
 
+  updateOrdersStatus(orderIds: string[], status: number) {
+    return this.apollo.mutate<AllOrdersResponse>({
+      mutation: UPDATE_ORDERS_STATUS,
+      variables: {
+        orderIds,
+        status,
+      },
+    });
+  }
+
   findOrderById(orderId: string) {
     return this.apollo.watchQuery<OrderResponse>({
       query: FIND_ORDER_BY_ID_QUERY,
@@ -115,6 +162,15 @@ export class OrdersService {
       mutation: DELETE_ORDER_MUTATION,
       variables: {
         orderId,
+      },
+    });
+  }
+
+  deleteOrders(orderIds: string[]) {
+    return this.apollo.mutate<AllOrdersResponse>({
+      mutation: DELETE_SELECTED_ORDERS_MUTATION,
+      variables: {
+        orderIds,
       },
     });
   }
