@@ -16,7 +16,7 @@
       <!--            <div class="desc">مجموع خرید های فرودین ماه : ۱۲۰</div>-->
     </div>
 
-    <div [routerLink]="['/','requests']" class="box">
+    <!-- <div [routerLink]="['/','requests']" class="box">
       <svg height="40" viewBox="0 0 24 24" width="40" xmlns="http://www.w3.org/2000/svg">
         <path d="M0 0h24v24H0V0z" fill="none" />
         <path
@@ -27,34 +27,20 @@
         <div class="counter">{{requests.length}}</div>
         <div class="text">درخواست حسابرسی</div>
       </div>
-      <!--            <div class="desc"></div>-->
-    </div>
+    </div> -->
 
     <div class="box">
       <div class="title">
         <ion-chip class="title-chip" style="margin-top: 36px" color="danger">
-          <ion-icon
-            style="font-size: 24px"
-            name="power"
-            color="danger"
-            class="power-icon"
-          ></ion-icon>
-          <ion-label style="font-size: 24px; margin-right: 16px"
-            >وضیعت اپلیکیشن</ion-label
-          >
+          <ion-icon style="font-size: 24px" name="power" color="danger" class="power-icon"></ion-icon>
+          <ion-label style="font-size: 24px; margin-right: 16px">وضیعت اپلیکیشن</ion-label>
         </ion-chip>
       </div>
 
       <ion-spinner *ngIf="loading || switchLoading" color="danger"></ion-spinner>
 
-      <div
-        (click)="switchIsActive()"
-        *ngIf="!loading && !switchLoading"
-        class="power-box__wrapper"
-      >
-        <div [ngStyle]="isActive ? {'color': 'red'}: {}" class="power-text">
-          {{isActive ? ' فعال': 'غیر فعال'}}
-        </div>
+      <div (click)="switchIsActive()" *ngIf="!loading && !switchLoading" class="power-box__wrapper">
+        <div [ngStyle]="isActive ? {'color': 'red'}: {}" class="power-text">{{isActive ? ' فعال': 'غیر فعال'}}</div>
         <ion-toggle color="danger" [checked]="isActive"></ion-toggle>
       </div>
     </div>
