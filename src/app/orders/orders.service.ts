@@ -82,7 +82,7 @@ const FIND_ORDER_BY_ID_QUERY = gql`
 
 const DELETE_SELECTED_ORDERS_MUTATION = gql`
   mutation DeleteOrders($orderIds: [String]!) {
-    products: deleteOrders(orderIds: $orderIds) {
+    orders: deleteOrders(orderIds: $orderIds) {
       id
       user {
         id

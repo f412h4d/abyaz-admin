@@ -21,7 +21,7 @@ export class OrdersPage implements OnInit {
     private message: MessageService,
     private ordersService: OrdersService,
     private loadingCtrl: LoadingController,
-    private alertCtrl: AlertController,
+    private alertCtrl: AlertController
   ) {}
 
   ngOnInit() {
@@ -47,7 +47,7 @@ export class OrdersPage implements OnInit {
                     }),
                   },
                 };
-              }),
+              })
             )
             .subscribe(
               (result) => {
@@ -61,7 +61,7 @@ export class OrdersPage implements OnInit {
                 this.error = true;
                 this.message.toast('خطایی رخ داده است');
                 loadingEl.dismiss().then();
-              },
+              }
             );
         });
       });
@@ -82,7 +82,7 @@ export class OrdersPage implements OnInit {
           role: 'cancel',
         },
         {
-          text: 'حدف',
+          text: 'حذف',
           role: 'delete',
           cssClass: 'red',
           handler: isMulti
@@ -114,9 +114,7 @@ export class OrdersPage implements OnInit {
           return this.message.toast(`خطایی رخ داد`);
         }
 
-        this.message.toast(
-          `سفارش <strong>${result.data.order.user.FName}</strong> حذف شد`,
-        );
+        this.message.toast(`سفارش <strong>${result.data.order.user.FName}</strong> حذف شد`);
       },
       error: (error) => {
         console.error(error);
@@ -152,8 +150,19 @@ export class OrdersPage implements OnInit {
     await loader.present();
 
     this.ordersService
-      .deleteOrders(
-        this.orders.filter((order) => order.selected === true).map((order) => order.id),
+      .deleteOrders(this.orders.filter((order) => order.selected === true).map((order) => order.id))
+      .pipe(
+        map((result) => {
+          return {
+            ...result,
+            data: {
+              ...result.data,
+              orders: result.data.orders.map((order) => {
+                return { ...order, selected: false };
+              }),
+            },
+          };
+        })
       )
       .subscribe({
         next: (result) => {
@@ -182,25 +191,38 @@ export class OrdersPage implements OnInit {
 
     await loader.present();
 
-    const selectedOrdersIds = this.orders
-      .filter((order) => order.selected === true)
-      .map((order) => order.id);
+    const selectedOrdersIds = this.orders.filter((order) => order.selected === true).map((order) => order.id);
 
-    this.ordersService.updateOrdersStatus(selectedOrdersIds, 1).subscribe({
-      next: (result) => {
-        if (!result.data) {
-          return this.message.toast(`خطایی رخ داد`);
-        }
+    this.ordersService
+      .updateOrdersStatus(selectedOrdersIds, 1)
+      .pipe(
+        map((result) => {
+          return {
+            ...result,
+            data: {
+              ...result.data,
+              orders: result.data.orders.map((order) => {
+                return { ...order, selected: false };
+              }),
+            },
+          };
+        })
+      )
+      .subscribe({
+        next: (result) => {
+          if (!result.data) {
+            return this.message.toast(`خطایی رخ داد`);
+          }
 
-        this.message.toast(`سفارش های مورد نظر تغیر کرد`);
+          this.message.toast(`سفارش های مورد نظر تغیر کرد`);
 
-        this.orders = result.data.orders;
-      },
-      error: (e) => {
-        console.log(e);
-        this.message.toast(`خطایی رخ داد`);
-      },
-      complete: async () => await loader.dismiss(),
-    });
+          this.orders = result.data.orders;
+        },
+        error: (e) => {
+          console.log(e);
+          this.message.toast(`خطایی رخ داد`);
+        },
+        complete: async () => await loader.dismiss(),
+      });
   }
 }
