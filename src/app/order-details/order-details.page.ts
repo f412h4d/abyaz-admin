@@ -1,19 +1,19 @@
-import { Component, OnInit } from "@angular/core";
-import { ActivatedRoute } from "@angular/router";
-import { LoadingController, NavController } from "@ionic/angular";
-import { jsPDF } from "jspdf";
-import "jspdf-autotable";
-import * as moment from "moment-jalaali";
-import { PersianDatePipe } from "src/shared/persian-date.pipe";
-import { Order } from "../../types";
-import { OrdersService } from "../orders/orders.service";
-import { MessageService } from "../services/message.service";
-import { addFont, logo } from "./assets.encoded";
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { LoadingController, NavController } from '@ionic/angular';
+import { jsPDF } from 'jspdf';
+import 'jspdf-autotable';
+import * as moment from 'moment-jalaali';
+import { PersianDatePipe } from 'src/shared/persian-date.pipe';
+import { Order } from '../../types';
+import { OrdersService } from '../orders/orders.service';
+import { MessageService } from '../services/message.service';
+import { addFont, logo } from './assets.encoded';
 
 @Component({
-  selector: "app-order-details",
-  templateUrl: "./order-details.page.html",
-  styleUrls: ["./order-details.page.scss"],
+  selector: 'app-order-details',
+  templateUrl: './order-details.page.html',
+  styleUrls: ['./order-details.page.scss'],
 })
 export class OrderDetailsPage implements OnInit {
   private orderId: string;
@@ -34,14 +34,14 @@ export class OrderDetailsPage implements OnInit {
   ngOnInit() {
     this.loadingCtrl
       .create({
-        message: "در حال بارگذاری اطلاعات",
-        cssClass: "my-custom-loading",
+        message: 'در حال بارگذاری اطلاعات',
+        cssClass: 'my-custom-loading',
         duration: 6,
-        mode: "md",
+        mode: 'md',
       })
       .then((loadingEl) => {
         loadingEl.present().then(() => {
-          this.orderId = this.route.snapshot.paramMap.get("orderId");
+          this.orderId = this.route.snapshot.paramMap.get('orderId');
           this.service.findOrderById(this.orderId).subscribe(
             (result) => {
               this.order = result.data.order;
@@ -56,7 +56,7 @@ export class OrderDetailsPage implements OnInit {
             (err) => {
               console.error({ err });
               this.error = true;
-              this.message.toast("خطایی رخ داده است");
+              this.message.toast('خطایی رخ داده است');
               loadingEl.dismiss().then();
             }
           );
@@ -72,42 +72,42 @@ export class OrderDetailsPage implements OnInit {
     addFont();
 
     const doc: any = new jsPDF({
-      orientation: "p",
-      format: "a4",
-      filters: ["ASCIIHexEncode"],
+      orientation: 'p',
+      format: 'a4',
+      filters: ['ASCIIHexEncode'],
     });
-    doc.setFont("IRANSans");
+    doc.setFont('IRANSans');
 
-    const headerText = "ابیض شیمی";
-    const today = `${moment(new Date()).format("jYYYY/jMM/jDD")}  : تاریخ `;
+    const headerText = 'ابیض شیمی';
+    const today = `${moment(new Date()).format('jYYYY/jMM/jDD')}  : تاریخ `;
 
     doc.setFontSize(16);
-    doc.addImage(logo, "JPEG", 95, 8, 20, 20);
-    doc.text(today, 15, 20, { isInputRtl: false, align: "left" });
-    doc.text(headerText, 195, 20, { isInputRtl: false, align: "right" });
-    doc.rect(5, 5, doc.internal.pageSize.width - 10, doc.internal.pageSize.height - 10, "S");
+    doc.addImage(logo, 'JPEG', 95, 8, 20, 20);
+    doc.text(today, 15, 20, { isInputRtl: false, align: 'left' });
+    doc.text(headerText, 195, 20, { isInputRtl: false, align: 'right' });
+    doc.rect(5, 5, doc.internal.pageSize.width - 10, doc.internal.pageSize.height - 10, 'S');
 
     doc.setFontSize(11);
     doc.setTextColor(100);
 
-    const styles = { halign: "center", font: "IRANSans" };
+    const styles = { halign: 'center', font: 'IRANSans' };
 
     const head = [
       [
         {
-          content: "قیمت کل",
+          content: 'قیمت کل',
           styles,
         },
         {
-          content: "تعداد",
+          content: 'تعداد',
           styles,
         },
         {
-          content: "فی",
+          content: 'فی',
           styles,
         },
         {
-          content: "محصول",
+          content: 'محصول',
           styles,
         },
       ],
@@ -139,7 +139,7 @@ export class OrderDetailsPage implements OnInit {
     const transitHead = [
       [
         {
-          content: "باربری",
+          content: 'باربری',
           styles,
         },
       ],
@@ -148,7 +148,7 @@ export class OrderDetailsPage implements OnInit {
     const transitBody = [
       [
         {
-          content: "مبلغ ۷۰,۰۰۰ تومان بابت هزینه ی باربری به فاکتور اضافه شد",
+          content: 'مبلغ ۷۰,۰۰۰ تومان بابت هزینه ی باربری به فاکتور اضافه شد',
           styles,
         },
       ],
@@ -158,15 +158,15 @@ export class OrderDetailsPage implements OnInit {
       head,
       body,
       margin: { top: 36 },
-      theme: "grid",
+      theme: 'grid',
     });
 
-    if (this.order.transit !== "خودم") {
+    if (this.order.transit !== 'خودم') {
       doc.autoTable({
         head: transitHead,
         body: transitBody,
         margin: { top: 36 },
-        theme: "grid",
+        theme: 'grid',
       });
     }
 
@@ -174,19 +174,19 @@ export class OrderDetailsPage implements OnInit {
     const orderHead = [
       [
         {
-          content: ": کد سفارش",
+          content: ': کد سفارش',
           styles,
         },
         {
-          content: ": مشتری",
+          content: ': مشتری',
           styles,
         },
         {
-          content: ": تاریخ سفارش",
+          content: ': تاریخ سفارش',
           styles,
         },
         {
-          content: ": مبلغ کل",
+          content: ': مبلغ کل',
           styles,
         },
       ],
@@ -210,7 +210,7 @@ export class OrderDetailsPage implements OnInit {
           styles,
         },
         {
-          content: this.order.total + (this.order.transit !== "خودم" ? 70000 : 0),
+          content: this.order.total + (this.order.transit !== 'خودم' ? 70000 : 0),
           styles,
         },
       ],
@@ -221,26 +221,26 @@ export class OrderDetailsPage implements OnInit {
       head: orderHead,
       body: orderDetails,
       margin: { top: 36 },
-      theme: "plain",
+      theme: 'plain',
     });
 
     // Location Table
     const locationHead = [
       [
         {
-          content: ": تلفن",
+          content: ': تلفن',
           styles,
         },
         {
-          content: ": باربری",
+          content: ': باربری',
           styles,
         },
         {
-          content: ": شهر",
+          content: ': شهر',
           styles,
         },
         {
-          content: ": نشانی",
+          content: ': نشانی',
           styles,
         },
       ],
@@ -264,7 +264,7 @@ export class OrderDetailsPage implements OnInit {
           styles,
         },
         {
-          content: this.order.details !== "undefined" ? this.order.details : "نامشخص",
+          content: this.order.details !== 'undefined' ? this.order.details : 'نامشخص',
           styles,
         },
       ],
@@ -275,7 +275,7 @@ export class OrderDetailsPage implements OnInit {
       head: locationHead,
       body: locationDetails,
       margin: { top: 36 },
-      theme: "plain",
+      theme: 'plain',
     });
 
     // below line for Open PDF document in new tab
