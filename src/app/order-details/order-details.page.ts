@@ -136,12 +136,39 @@ export class OrderDetailsPage implements OnInit {
       }),
     ];
 
+    const transitHead = [
+      [
+        {
+          content: "باربری",
+          styles,
+        },
+      ],
+    ];
+
+    const transitBody = [
+      [
+        {
+          content: "مبلغ ۷۰,۰۰۰ تومان بابت هزینه ی باربری به فاکتور اضافه شد",
+          styles,
+        },
+      ],
+    ];
+
     doc.autoTable({
       head,
       body,
       margin: { top: 36 },
       theme: "grid",
     });
+
+    if (this.order.transit !== "خودم") {
+      doc.autoTable({
+        head: transitHead,
+        body: transitBody,
+        margin: { top: 36 },
+        theme: "grid",
+      });
+    }
 
     // Order Details Table
     const orderHead = [
@@ -183,7 +210,7 @@ export class OrderDetailsPage implements OnInit {
           styles,
         },
         {
-          content: this.order.total + (this.order.transit !== "خودم" ? " + ۷۰,۰۰۰ تومان هزینه ی باربری " : ""),
+          content: this.order.total + (this.order.transit !== "خودم" ? 70000 : 0),
           styles,
         },
       ],
